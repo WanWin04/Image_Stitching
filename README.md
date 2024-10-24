@@ -1,4 +1,4 @@
-# chatKPT-2024-AIC-HCMC
+# The Fourth
 The Fourth team's source code repository for Image Stitching
 
 # Members
