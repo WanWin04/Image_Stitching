@@ -1,6 +1,0 @@
-1. Tạo branch và chuyển qua branch đó : git checkout -b <name-branch>
-2. Push code lên github
-B1. git add .
-B2. git commit -m "<message>"
-B3. git push origin <branch>
-B4. Merge code vô main
