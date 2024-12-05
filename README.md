@@ -18,7 +18,7 @@ The organizational structure of our project is as follows:
 
 **"UDIS-D" Folder:**
 
-* Contains the original raw UDIS-D dataset.
+* Contains the original raw UDIS-D dataset. Because the capacity is too large, I only push a very small part. Please download the full data set at: https://drive.google.com/drive/folders/1kC7KAULd5mZsqaWnY3-rSbQLaZ7LujTY
 
 **"doc" Folder:**
 
