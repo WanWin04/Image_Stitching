@@ -1,5 +1,5 @@
 # The Fourth
-The Fourth team's source code repository for Image Stitching
+The Fourth team's source code repository for Image Stitching. Survey of Image Stitching and its application in multi-perspective image stitching.
 
 # Members
 | **Name**| **Major**| **University**|
