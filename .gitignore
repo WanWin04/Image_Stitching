@@ -1,4 +1,5 @@
-.UDIS-D
+UDIS-D
+vscode
 
 .vs/
 tsbir_model_final.pt
