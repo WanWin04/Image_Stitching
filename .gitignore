@@ -1,5 +1,4 @@
-.UDIS-D/training
-.UDIS-D/testing
+.UDIS-D
 
 .vs/
 tsbir_model_final.pt
