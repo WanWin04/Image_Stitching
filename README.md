@@ -14,7 +14,7 @@ The organizational structure of our project is as follows:
 
 **"data" folder:**
 
-* Stores a small dataset including two subsets, train and test, which are extracted from 20% of the train set and 20% of the test set of UDIS-D.
+* Stores a small dataset including two subsets, train and test, which are extracted from 20% of the train set and 20% of the test set of UDIS-D. (update later)
 
 **"UDIS-D" Folder:**
 
