@@ -7,3 +7,4 @@
 
 # Set Windows-specific files to use CRLF
 *.bat text eol=crlf
+*.ipynb text eol=lf
