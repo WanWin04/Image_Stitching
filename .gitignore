@@ -1,4 +1,3 @@
-UDIS-D
 vscode
 
 .vs/
@@ -8,7 +7,7 @@ tsbir_model_final.pt
 export/
 
 # Keep data structure
-data/
+data/UDIS-D/training/
 
 # .DS_Store from Macbook
 .DS_Store
