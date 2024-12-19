@@ -1,4 +1,4 @@
-import src.feature_based.model as m
+import model as m
 import sys
 import cv2
 
@@ -26,4 +26,4 @@ if __name__ == "__main__":
     main(image_list)
 
 # code chạy thử
-# python Paronama.py src/feature_based/input/room/room01.jpeg src/feature_based/input/room/room02.jpeg
+# python src/feature_based/Paronama.py src/feature_based/input/room/room01.jpeg src/feature_based/input/room/room02.jpeg
