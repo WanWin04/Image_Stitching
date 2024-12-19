@@ -26,4 +26,4 @@ if __name__ == "__main__":
     main(image_list)
 
 # code chạy thử
-# python Paronama.py src/feature_based/input/room/room01.jpeg.jpg src/feature_based/input/room/room02.jpeg
+# python Paronama.py src/feature_based/input/room/room01.jpeg src/feature_based/input/room/room02.jpeg
