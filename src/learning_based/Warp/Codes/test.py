@@ -114,12 +114,11 @@ def test(args):
 
 
 if __name__=="__main__":
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--gpu', type=str, default='0')
     parser.add_argument('--batch_size', type=int, default=1)
-    parser.add_argument('--test_path', type=str, default=r'E:/Image_Stitching/data/UDIS-D/testing/')
+    parser.add_argument('--test_path', type=str, default='../../../../data/UDIS-D/testing/')
 
     print('<==================== Loading data ===================>\n')
 
