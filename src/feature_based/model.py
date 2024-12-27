@@ -247,7 +247,6 @@ def forward(query_photo, train_photo):
     matches = image_stitching.create_and_match_keypoints(
         features_train_image, features_query_image
     )
-
     mapped_feature_image = cv2.drawMatches(
                         train_photo,
                         keypoints_train_image,
