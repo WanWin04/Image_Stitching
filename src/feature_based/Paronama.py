@@ -41,8 +41,8 @@ if __name__ == "__main__":
 
     # Change your path
     default_image_list = [
-        "../../data/UDIS-D/testing/input1/000005.jpg",
-        "../../data/UDIS-D/testing/input2/000005.jpg"
+        "data/UDIS-D/testing/input1/000005.jpg",
+        "data/UDIS-D/testing/input2/000005.jpg"
     ]
 
     image_list = []
