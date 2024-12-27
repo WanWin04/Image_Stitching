@@ -1,11 +1,11 @@
 
 ## Code
 #### Requirement
-* numpy
-* pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu121
-* scikit-image 
-* tensorboard 
-* OpenCV
+* numpy==1.26.3
+* pip install torch==2.3.1+cu121 torchvision==0.18.1+cu121 torchaudio==2.3.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+* scikit-image==0.25.0
+* tensorboard==2.18.0
+* opencv-python==4.10.0.84
 
 We implement this work CUDA 12.1.
 

@@ -20,10 +20,18 @@ def main(image_dir_list):
 
 
 if __name__ == "__main__":
+    import sys
+
+    # Change your path
+    default_image_list = [
+        "../../data/UDIS-D/testing/input1/000005.jpg",
+        "../../data/UDIS-D/testing/input2/000005.jpg"
+    ]
+
     image_list = []
     for i in range(1, len(sys.argv)):
         image_list.append(sys.argv[i])
-    main(image_list)
 
-# code chạy thử
-# python src/feature_based/Paronama.py src/feature_based/input/room/room01.jpeg src/feature_based/input/room/room02.jpeg
+    image_list.extend(default_image_list)
+
+    main(image_list)
