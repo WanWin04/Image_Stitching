@@ -3,18 +3,18 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 import grid_res
-grid_h = grid_res.GRID_H
-grid_w = grid_res.GRID_W
+grid_h = grid_res.GRID_H  # Grid height
+grid_w = grid_res.GRID_W  # Grid width
 
-
+# L-norm loss between two images
 def l_num_loss(img1, img2, l_num=1):
     return torch.mean(torch.abs((img1 - img2)**l_num))
 
-
+# Calculate LP loss (local photometric loss) between input images and transformations
 def cal_lp_loss(input1, input2, output_H, output_H_inv, warp_mesh, warp_mesh_mask):
     batch_size, _, img_h, img_w = input1.size()
 
-    # part one: sym homo loss with color balance
+    # Part 1: Symmetric homography loss with color balance
     delta1 = ( torch.sum(output_H[:,0:3,:,:], [2,3])  -   torch.sum(input1*output_H[:,3:6,:,:], [2,3]) ) /  torch.sum(output_H[:,3:6,:,:], [2,3])
     input1_balance = input1 + delta1.unsqueeze(2).unsqueeze(3).expand(-1, -1, img_h, img_w)
 
@@ -23,64 +23,56 @@ def cal_lp_loss(input1, input2, output_H, output_H_inv, warp_mesh, warp_mesh_mas
 
     lp_loss_1 = l_num_loss(input1_balance*output_H[:,3:6,:,:], output_H[:,0:3,:,:], 1) + l_num_loss(input2_balance*output_H_inv[:,3:6,:,:], output_H_inv[:,0:3,:,:], 1)
 
-    # part two: tps loss with color balance
+    # Part 2: TPS (Thin Plate Spline) loss with color balance
     delta3 = ( torch.sum(warp_mesh, [2,3])  -   torch.sum(input1*warp_mesh_mask, [2,3]) ) /  torch.sum(warp_mesh_mask, [2,3])
     input1_newbalance = input1 + delta3.unsqueeze(2).unsqueeze(3).expand(-1, -1, img_h, img_w)
 
     lp_loss_2 = l_num_loss(input1_newbalance*warp_mesh_mask, warp_mesh, 1)
 
-
+    # Total LP loss (weighted combination of the two losses)
     lp_loss = 3. * lp_loss_1 + 1. * lp_loss_2
 
     return lp_loss
 
-
+# Calculate LP loss only for the second part (TPS loss)
 def cal_lp_loss2(input1, warp_mesh, warp_mesh_mask):
     batch_size, _, img_h, img_w = input1.size()
 
+    # Balance the input with the warp mesh mask
     delta3 = ( torch.sum(warp_mesh, [2,3])  -   torch.sum(input1*warp_mesh_mask, [2,3]) ) /  torch.sum(warp_mesh_mask, [2,3])
     input1_newbalance = input1 + delta3.unsqueeze(2).unsqueeze(3).expand(-1, -1, img_h, img_w)
 
+    # Compute the LP loss based on the new balanced input and the mesh
     lp_loss_2 = l_num_loss(input1_newbalance*warp_mesh_mask, warp_mesh, 1)
     lp_loss =  1. * lp_loss_2
 
     return lp_loss
 
-
+# Inter-grid loss: penalizes the difference in depth and angle between overlapping regions of the mesh
 def inter_grid_loss(overlap, mesh):
     ##############################
-    # compute horizontal edges
+    # Compute horizontal edges and angles
     w_edges = mesh[:,:,0:grid_w,:] - mesh[:,:,1:grid_w+1,:]
-    # compute angles of two successive horizontal edges
     cos_w = torch.sum(w_edges[:,:,0:grid_w-1,:] * w_edges[:,:,1:grid_w,:],3) / (torch.sqrt(torch.sum(w_edges[:,:,0:grid_w-1,:]*w_edges[:,:,0:grid_w-1,:],3))*torch.sqrt(torch.sum(w_edges[:,:,1:grid_w,:]*w_edges[:,:,1:grid_w,:],3)))
-    # horizontal angle-preserving error for two successive horizontal edges
     delta_w_angle = 1 - cos_w
-    # horizontal angle-preserving error for two successive horizontal grids
     delta_w_angle = delta_w_angle[:,0:grid_h,:] + delta_w_angle[:,1:grid_h+1,:]
-    ##############################
 
     ##############################
-    # compute vertical edges
+    # Compute vertical edges and angles
     h_edges = mesh[:,0:grid_h,:,:] - mesh[:,1:grid_h+1,:,:]
-    # compute angles of two successive vertical edges
     cos_h = torch.sum(h_edges[:,0:grid_h-1,:,:] * h_edges[:,1:grid_h,:,:],3) / (torch.sqrt(torch.sum(h_edges[:,0:grid_h-1,:,:]*h_edges[:,0:grid_h-1,:,:],3))*torch.sqrt(torch.sum(h_edges[:,1:grid_h,:,:]*h_edges[:,1:grid_h,:,:],3)))
-    # vertical angle-preserving error for two successive vertical edges
     delta_h_angle = 1 - cos_h
-    # vertical angle-preserving error for two successive vertical grids
     delta_h_angle = delta_h_angle[:,:,0:grid_w] + delta_h_angle[:,:,1:grid_w+1]
-    ##############################
 
-    # on overlapping regions
+    # Compute error based on overlapping regions
     depth_diff_w = (1-torch.abs(overlap[:,:,0:grid_w-1] - overlap[:,:,1:grid_w])) * overlap[:,:,0:grid_w-1]
     error_w = depth_diff_w * delta_w_angle
-    # on overlapping regions
     depth_diff_h = (1-torch.abs(overlap[:,0:grid_h-1,:] - overlap[:,1:grid_h,:])) * overlap[:,0:grid_h-1,:]
     error_h = depth_diff_h * delta_h_angle
 
     return torch.mean(error_w) + torch.mean(error_h)
 
-
-# intra-grid constraint
+# Intra-grid constraint: ensures that the grid points are within a specified max distance
 def intra_grid_loss(pts):
     max_w = 512/grid_w * 2
     max_h = 512/grid_h * 2

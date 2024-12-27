@@ -1,5 +1,5 @@
-# The Fourth
-The Fourth team's source code repository for Image Stitching. Survey of Image Stitching and its application in multi-perspective image stitching.
+# Image Stitching - A survey of traditional and deep learning sides
+This repository contains the source code for the Image Stitching project developed by the Fourth Team, as part of the 'Digital Image and Video Processing' course. The project includes a comprehensive survey on image stitching techniques and their applications in multi-perspective image stitching.
 
 # Members
 | **Name**| **Major**| **University**|
