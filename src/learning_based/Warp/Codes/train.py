@@ -163,7 +163,7 @@ if __name__=="__main__":
     parser.add_argument('--gpu', type=str, default='0')
     parser.add_argument('--batch_size', type=int, default=4)
     parser.add_argument('--max_epoch', type=int, default=100)
-    parser.add_argument('--train_path', type=str, default='../../../../data/UDIS-D/training/')
+    parser.add_argument('--train_path', type=str, default='../../../../data/UDIS-D/training/') # Change your path
 
     # Parse the arguments
     args = parser.parse_args()

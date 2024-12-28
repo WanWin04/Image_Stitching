@@ -22,17 +22,10 @@ def main(image_dir_list):
     
 
 def measure_execution_time(func, *args, **kwargs):
-    """
-    Đo thời gian thực thi của một hàm.
-    :param func: Hàm cần đo thời gian.
-    :param args: Các tham số không có tên cho hàm.
-    :param kwargs: Các tham số có tên cho hàm.
-    :return: Kết quả của hàm và thời gian thực thi.
-    """
-    start_time = time.time()  # Ghi lại thời gian bắt đầu
-    result = func(*args, **kwargs)  # Thực thi hàm
-    end_time = time.time()  # Ghi lại thời gian kết thúc
-    execution_time = end_time - start_time  # Tính thời gian thực thi
+    start_time = time.time()
+    result = func(*args, **kwargs)
+    end_time = time.time()
+    execution_time = end_time - start_time
     print(f"Execution : {execution_time:.4f} seconds")
     return result
 
@@ -41,8 +34,8 @@ if __name__ == "__main__":
 
     # Change your path
     default_image_list = [
-        "data/UDIS-D/testing/input1/000005.jpg",
-        "data/UDIS-D/testing/input2/000005.jpg"
+        "data/UDIS-D/testing/input1/000002.jpg",
+        "data/UDIS-D/testing/input2/000002.jpg"
     ]
 
     image_list = []

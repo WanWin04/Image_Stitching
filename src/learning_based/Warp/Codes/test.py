@@ -79,16 +79,15 @@ def test(args):
 
 
             # calculate psnr/ssim
-            # psnr = skimage.measure.compare_psnr(inpu1_np*warp_mesh_mask_np, warp_mesh_np*warp_mesh_mask_np, 255)
-            # ssim = skimage.measure.compare_ssim(inpu1_np*warp_mesh_mask_np, warp_mesh_np*warp_mesh_mask_np, data_range=255, multichannel=True)
-
             psnr = compare_psnr(inpu1_np * warp_mesh_mask_np, warp_mesh_np * warp_mesh_mask_np, data_range=255)
-            # ssim = compare_ssim(inpu1_np * warp_mesh_mask_np, warp_mesh_np * warp_mesh_mask_np, data_range=255, multichannel=True)
+            ssim = compare_ssim(inpu1_np * warp_mesh_mask_np, warp_mesh_np * warp_mesh_mask_np, data_range=255, multichannel=True, win_size=3)
 
             print('i = {}, psnr = {:.6f}'.format( i+1, psnr))
+            print('i = {}, ssim = {:.6f}'.format( i+1, ssim))
+            print('----------------------------------------------\n')
 
             psnr_list.append(psnr)
-            # ssim_list.append(ssim)
+            ssim_list.append(ssim)
             torch.cuda.empty_cache()
 
     print("=================== Analysis ==================")
@@ -102,15 +101,15 @@ def test(args):
     print("top 60~100%", np.mean(psnr_list_100))
     print('average psnr:', np.mean(psnr_list))
 
-    # ssim_list.sort(reverse = True)
-    # ssim_list_30 = ssim_list[0 : 331]
-    # ssim_list_60 = ssim_list[331: 663]
-    # ssim_list_100 = ssim_list[663: -1]
-    # print("top 30%", np.mean(ssim_list_30))
-    # print("top 30~60%", np.mean(ssim_list_60))
-    # print("top 60~100%", np.mean(ssim_list_100))
-    # print('average ssim:', np.mean(ssim_list))
-    # print("##################end testing#######################")
+    ssim_list.sort(reverse = True)
+    ssim_list_30 = ssim_list[0 : 331]
+    ssim_list_60 = ssim_list[331: 663]
+    ssim_list_100 = ssim_list[663: -1]
+    print("top 30%", np.mean(ssim_list_30))
+    print("top 30~60%", np.mean(ssim_list_60))
+    print("top 60~100%", np.mean(ssim_list_100))
+    print('average ssim:', np.mean(ssim_list))
+    print("##################end testing#######################")
 
 
 if __name__=="__main__":
