@@ -4,10 +4,10 @@ This repository contains the source code for the Image Stitching project develop
 # Members
 | **Name**| **Major**| **University**|
 |-|-|-|
-| Duong Quang Thang | Information Technology - Computer Vision  | University of Science (VNUHCM) |
-| Nguyen Quoc Thang | Information Technology - Computer Vision  | University of Science (VNUHCM) |
-| Nguyen Gia Nguyen | Information Technology - Computer Vision  | University of Science (VNUHCM) |
-| Ngo Hoang Nam Hung| Information Technology - Computer Vision  | University of Science (VNUHCM) |
+| Quang-Thang Duong | Information Technology - Computer Vision  | University of Science (VNUHCM) |
+| Quoc-Thang Nguyen | Information Technology - Computer Vision  | University of Science (VNUHCM) |
+| Gia-Nguyen Nguyen | Information Technology - Computer Vision  | University of Science (VNUHCM) |
+| Nam-Hung Ngo-Hoang | Information Technology - Computer Vision  | University of Science (VNUHCM) |
 
 # Project Structure
 The organizational structure of our project is as follows:
